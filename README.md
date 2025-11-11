@@ -2,126 +2,117 @@
 
 # Overview
 <p align="justify">
-Project RTS is an advanced real-time traffic sign detection and recognition system designed to enhance road safety and support intelligent transportation solutions. Leveraging deep learning and computer vision, the system identifies and classifies traffic signs from live video feeds, providing instant feedback crucial for driver assistance systems and autonomous vehicles. The model is trained on diverse datasets of Indian and German traffic signs to ensure robust performance across various conditions.
-</p>
+Project RTS is an advanced, real-time traffic sign detection and recognition system designed to enhance road safety and support intelligent transportation systems. Leveraging Deep Learning and Computer Vision, the system identifies and classifies traffic signs from live video feeds, providing instant feedback crucial for Advanced Driver Assistance Systems (ADAS) and autonomous vehicles.
+The model is trained on diverse datasets of Indian and German traffic signs to ensure robust performance across varying lighting, distance, and weather conditions.
 
-# Abstract
+## Abstract
 <p align="justify">
-Project RTS implements a real-time pipeline for detecting and classifying traffic signs using a custom Convolutional Neural Network (CNN) architecture. Trained on approximately 35,000 labeled images covering 43 classes, the system processes live video streams captured from a webcam, performing image preprocessing, prediction, and visualization in real time. It overlays recognized traffic signs and confidence scores directly onto the video feed, delivering an efficient solution suitable for deployment on standard computing hardware without GPU acceleration.
-</p>
+Project RTS implements a two-stage real-time detection and classification pipeline.  
+The system first employs YOLOv11s-seg for traffic sign detection and localization, then passes cropped images to a lightweight CNN classifier (TSNet) for classification.  
+Trained on a dataset of 42,235 labeled images across 47 traffic sign categories, TSNet delivers exceptional precision.  
+The integrated model operates in real time on standard computing hardware without GPU acceleration and includes pyttsx3 voice feedback for driver alerts.  
+
+# Key Achievements
+- Real-time detection and recognition (~30 FPS)  
+- Overall accuracy: 98.1% 
+- Supports 47 distinct traffic sign classes  
+- Enables ADAS-level safety awareness through audio-visual alerts  
 
 # Table of Contents
-- [Demo Photos](#demo-photos)
-- [Libraries](#libraries)
-- [Block Diagram](#block-diagram)
-- [Code Base](#code-base)
-- [Technologies Used](#technologies-used)
-- [Result](#result)
-- [Conclusion](#conclusion)
+- [Demo Photos]
+- [Libraries]
+- [Block Diagram]
+- [Code Base]
+- [Technologies Used]
+- [Results]
+- [Conclusion]
+- [Future Scope]
+
 
 ## Demo Photos
+| YOLOv11 Detection | TSNet Classification |
+|-------------------|----------------------|
+| ![Detection](<img width="1072" height="667" alt="Screenshot 2025-09-07 215205" src="https://github.com/user-attachments/assets/5f53b092-10ff-4fff-b655-bc6ba0bc70ac" />
+) | ![Classification](<img width="1919" height="1006" alt="Screenshot 2025-08-10 161416" src="https://github.com/user-attachments/assets/11168168-427a-48a5-875b-872bd056488b" />
+) |
 
-<p align="center">
-  <img width="661" height="506" alt="Screenshot 2025-04-27 180606" src="https://github.com/user-attachments/assets/64001106-f329-41bc-85d2-ebc5db2457fc" />
-</p>
+(Sample outputs demonstrating real-time detection and lassification.) <img width="1080" height="638" alt="Screenshot 2025-09-07 164738" src="https://github.com/user-attachments/assets/cf61ea49-feb2-4d36-910c-9b7e39c7cf38" />
 
-# Libraries
-Libraries Already Developed/Utilized
+## Libraries
 
-| Libraries | Description |
-| :---         | :---      |
-| CNN Model | Custom architecture trained for traffic sign classification |
-| OpenCV | Handles video capture, image processing, and visualization |
-| NumPy | Used for numerical operations and array manipulation |
-| Pandas | Used for data handling and analysis |
-| cvzone | Used for simplifying computer vision tasks and overlays |
-| scikit-learn | Used for preprocessing and model evaluation utilities |
-| TensorFlow/Keras | Deep learning framework used for model development |
+| Library | Description |
+|----------|--------------|
+| **YOLOv11s-seg** | Detects traffic sign regions from real-time video input |
+| **TSNet (Custom CNN)** | Lightweight CNN for classifying detected traffic signs |
+| **OpenCV** | Handles video capture, preprocessing, and visualization |
+| **TensorFlow / Keras** | Framework for model design and training |
+| **NumPy / Pandas** | Data processing and numerical operations |
+| **cvzone** | Simplifies computer vision overlays and display elements |
+| **scikit-learn** | Used for preprocessing, evaluation, and model metrics |
+| **pyttsx3** | Provides text-to-speech driver alerts |
+| **Matplotlib** | Visualizes accuracy, loss curves, and confusion matrices |
 
-
-**Dataset Details:**
-
-- Total images: ~35,000
-- Number of classes: 43
-- Classes:
-    - 0: Speed limit (20km/h)
-    - 1: Speed limit (30km/h)
-    - 2: Speed limit (50km/h)
-    - 3: Speed limit (60km/h)
-    - 4: Speed limit (70km/h)
-    - 5: Speed limit (80km/h)
-    - 6: End of speed limit (80km/h)
-    - 7: Speed limit (100km/h)
-    - 8: Speed limit (120km/h)
-    - 9: No passing
-    - 10: No passing for vehicles over 3.5 metric tons
-    - 11: Right-of-way at the next intersection
-    - 12: Priority road
-    - 13: Yield
-    - 14: Stop
-    - 15: No vehicles
-    - 16: Vehicles over 3.5 metric tons prohibited
-    - 17: No entry
-    - 18: General caution
-    - 19: Dangerous curve to the left
-    - 20: Dangerous curve to the right
-    - 21: Double curve
-    - 22: Bumpy road
-    - 23: Slippery road
-    - 24: Road narrows on the right
-    - 25: Road work
-    - 26: Traffic signals
-    - 27: Pedestrians
-    - 28: Children crossing
-    - 29: Bicycles crossing
-    - 30: Beware of ice/snow
-    - 31: Wild animals crossing
-    - 32: End of all speed and passing limits
-    - 33: Turn right ahead
-    - 34: Turn left ahead
-    - 35: Ahead only
-    - 36: Go straight or right
-    - 37: Go straight or left
-    - 38: Keep right
-    - 39: Keep left
-    - 40: Roundabout mandatory
-    - 41: End of no passing
-    - 42: End of no passing by vehicles over 3.5 metric tons
-
-<p align="center">
-Dataset 
-<p align="center">
-<img width="375" height="200" alt="image" src="https://github.com/user-attachments/assets/7c0dc381-f15a-4cf4-a2fb-1d2e76e18ff4" />
-</p>
+# Dataset Details
+- **Source:** GTSRB (German Traffic Sign Recognition Benchmark) + Indian Traffic Signs Dataset  
+- **Total Images:** 42,235  
+- **Number of Classes:** 47  
+- **Data Split:** 80% Training / 20% Validation  
 
 # Block Diagram
-<p align="center">
-System Block Diagram
+<img width="940" height="1067" alt="image" src="https://github.com/user-attachments/assets/559f8148-565a-45a1-a9e6-53a3c542228c" />
 
-<img width="875" height="545" alt="Screenshot 2025-05-21 164759" src="https://github.com/user-attachments/assets/f0f1a23b-1b0c-4acc-beba-cbd44d1f2107" />
 
 # Code Base
+# 1. Model Architecture
+- **YOLOv11s-seg:** Trained for region detection of traffic signs.
+- **TSNet:** Two-block CNN with Conv2D → MaxPooling → Dense(Softmax) for 47-class classification.
 
-- CNN Model Architecture and Training Code
-- Real-Time Video Capture and Processing Code
+### 2. Real-Time Implementation
+- Captures live video using **OpenCV**.
+- Applies YOLO detection and TSNet classification per frame.
+- Displays labels, bounding boxes, and confidence scores.
+- Provides **voice alerts** using pyttsx3.
 
-# Technologies Used
-1. Python: Core language for data processing and model development.
-2. OpenCV: Used for video streaming, frame manipulation, and drawing overlays.
-3. TensorFlow & Keras: Deep learning frameworks for CNN design and training.
-4. NumPy, Pandas: Used for data handling and analysis.
-5. Matplotlib: For visualizing model performance and dataset distribution.
+#  Technologies Used
+| Component | Technology |
+|------------|-------------|
+| Programming Language | Python |
+| Deep Learning Framework | TensorFlow, Keras |
+| Object Detection | YOLOv11s-seg |
+| Image Processing | OpenCV |
+| Data Handling | NumPy, Pandas |
+| Visualization | Matplotlib, cvzone |
+| Voice Alert | pyttsx3 |
+| IDE | PyCharm |
 
-# Result
-Project RTS successfully demonstrates high-performance real-time detection of traffic signs:
+# Results
+| Metric | Detection (YOLOv11s-seg) | Classification (TSNet) |
+|---------|--------------------------|--------------------------|
+| Precision | 0.91 | 0.98 |
+| Recall | 0.90 | 0.97 |
+| Accuracy | 92% | **98.1%** |
 
-- Achieved ~90% classification accuracy on 43 Indian and German traffic sign classes.
-- Processes video at near real-time speeds (~30 FPS) on standard laptops without GPU acceleration.
-- Robust to varied lighting, angles, and occlusion due to comprehensive data augmentation during training.
-- Clear overlay of detected sign labels and confidence scores on live video, enabling seamless integration into ADAS systems.
+# Highlights:
+- Accurate detection of multiple signs in complex traffic scenes.  
+- Robust to varied lighting, occlusions, and angles.  
+- Real-time processing at ~30 FPS.  
+- Seamless integration of **visual + voice alerts**.
 
 # Conclusion
-<p align="justify">
-Project RTS represents a significant step toward safer and smarter transportation by enabling real-time traffic sign recognition using deep learning. The system is lightweight, scalable, and can be integrated into ADAS frameworks, contributing to accident prevention and improved traffic management. Future improvements may include deployment on embedded platforms, integration with other sensor data, and exploration of advanced detection architectures like YOLO for even faster inference.
-<p align="justify">
-The project showcases the power of combining computer vision with deep learning to solve critical real-world problems in the field of intelligent transportation systems.
+**Project RTS** successfully demonstrates an efficient, real-time traffic sign detection system using **Deep Learning** and **Computer Vision**.  
+The system’s dual-stage pipeline (YOLOv11 + TSNet) enhances accuracy and reliability while maintaining low latency, enabling real-time operation suitable for ADAS and smart city applications.  
+
+**Key Takeaways:**
+- Combines detection and classification for optimal accuracy.  
+- Achieves 98.1% recognition on real-world data.  
+- Lightweight, scalable, and deployable on embedded systems.  
+
+
+##  Future Scope
+- Integration with **Lane Detection** and **Driver Drowsiness Modules**.  
+- Deployment on **Edge Devices** (Jetson Nano, Raspberry Pi).  
+- Inclusion of **region-specific datasets** for global adaptability.  
+- Implementation of **voice-assisted driver alerts** and **HUD displays**.  
+- Exploration of **transformer-based architectures (e.g., DETR)** for next-gen models.
+
+“Driving Towards Safer, Smarter Roads – Project RTS”
