@@ -19,14 +19,14 @@ The integrated model operates in real time on standard computing hardware withou
 - Enables ADAS-level safety awareness through audio-visual alerts  
 
 # Table of Contents
-- [Demo Photos]
-- [Libraries]
-- [Block Diagram]
-- [Code Base]
-- [Technologies Used]
-- [Results]
-- [Conclusion]
-- [Future Scope]
+- Demo Photos
+- Libraries
+- Block Diagram
+- Code Base
+- Technologies Used
+- Results
+- Conclusion
+- Future Scope
 
 
 ## Demo Photos
