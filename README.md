@@ -32,9 +32,9 @@ The integrated model operates in real time on standard computing hardware withou
 ## Demo Photos
 | YOLOv11 Detection | TSNet Classification |
 |-------------------|----------------------|
-| ![Detection](<img width="1072" height="667" alt="Screenshot 2025-09-07 215205" src="https://github.com/user-attachments/assets/5f53b092-10ff-4fff-b655-bc6ba0bc70ac" />) | ![Classification](<img width="1919" height="1006" alt="Screenshot 2025-08-10 161416" src="https://github.com/user-attachments/assets/11168168-427a-48a5-875b-872bd056488b" />)|
+| ![Detection] <img width="1072" height="667" alt="Screenshot 2025-09-07 215205" src="https://github.com/user-attachments/assets/5f53b092-10ff-4fff-b655-bc6ba0bc70ac" /> |[Classification] <img width="1919" height="1006" alt="Screenshot 2025-08-10 161416" src="https://github.com/user-attachments/assets/11168168-427a-48a5-875b-872bd056488b" /> |
 
-(Sample outputs demonstrating real-time detection and lassification.) <img width="1080" height="638" alt="Screenshot 2025-09-07 164738" src="https://github.com/user-attachments/assets/cf61ea49-feb2-4d36-910c-9b7e39c7cf38" />
+Sample outputs demonstrating real-time detection and lassification. <img width="1080" height="638" alt="Screenshot 2025-09-07 164738" src="https://github.com/user-attachments/assets/cf61ea49-feb2-4d36-910c-9b7e39c7cf38" />
 
 ## Libraries
 
